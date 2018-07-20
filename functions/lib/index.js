@@ -11,6 +11,8 @@ const app = dialogflow({
 app.intent("What is the power output", conv => {
     const appliances = conv.parameters['appliances'];
     const numberOfAppliances = conv.parameters['numbers'];
+    console.log("Appliances", appliances);
+    console.log("num", numberOfAppliances);
     //Below code for database ref
     return database.ref("appliance/").once("value", snapshot => {
         const data = snapshot.val();
