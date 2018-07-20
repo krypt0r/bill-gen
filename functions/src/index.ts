@@ -1,8 +1,9 @@
 import * as functions from 'firebase-functions';
 import * as admin from 'firebase-admin';
-const database = admin.database();
 
 admin.initializeApp();
+const database = admin.database();
+
 const { dialogflow } = require('actions-on-google');
 const app = dialogflow({
     debug: true
@@ -13,8 +14,7 @@ app.intent("What is the power output", conv=> {
     const appliances = conv.parameters['appliances'];
     const numberOfAppliances = conv.parameters['numbers'];
     //Below code for database ref
-    return new Promise((resolve,reject) => {
-        database.ref("appliance/").once("value",snapshot=>{
+    return database.ref("appliance/").once("value",snapshot=>{
             const data = snapshot.val();
             //now data is a js object, the appliances detail could be accessed similarily
             let totalPowerConsumption = 1;
@@ -39,9 +39,7 @@ app.intent("What is the power output", conv=> {
             
             
             conv.ask("Total Power Consumption is " + totalPowerConsumption);
-            resolve();
         })
-    })
 })
 
 exports.googleAction = functions.https.onRequest(app);
