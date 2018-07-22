@@ -33,7 +33,7 @@ app.intent("What is the power output", conv=> {
                  //if no Number of Appliances are provided. It'll take 1 as default for all appliances
                  else if(numberOfAppliances.length === null){
                         for(let i of appliances){
-                            totalPowerConsumption += data[appliances[i]].output;
+                            totalPowerConsumption += data[i].output;
                         }
                     }
                     // If Number of Appliances is provided for only some of applianes.
